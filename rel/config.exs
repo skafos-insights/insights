@@ -13,6 +13,23 @@ use Mix.Releases.Config,
   # This sets the default environment used by `mix release`
   default_environment: Mix.env()
 
+defmodule Insights.ReleaseTasks do
+  @start_apps [
+    :crypto,
+    :ssl,
+    :postgrex,
+    :ecto
+  ]
+
+  def myapp, do: Application.get_application(__MODULE__)
+
+  def repos, do: Application.get_env(myapp(), :ecto_repos, [])
+
+  def migrate, do: Enum.each(repos(), &run_migrations_for/1)
+
+  def migrations_path(repo), do: priv_path_for(repo, "migrations")
+end
+
 # For a full list of config options for both releases
 # and environments, visit https://hexdocs.pm/distillery/config/distillery.html
 
