@@ -83,7 +83,7 @@ config :insights, InsightsWeb.Endpoint,
 #   # Free tier db only allows 4 connections. Rolling deploys need pool_size*(n+1) connections.
 #   pool_size: 2
 
-config :insights, InsightsWeb.Repo,
+config :insights, Insights.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "insights",
   password: "HPwhi2v6AVMt",
