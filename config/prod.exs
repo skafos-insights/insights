@@ -79,7 +79,6 @@ config :insights, InsightsWeb.Endpoint,
 config :insights, InsightsWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: "${DATABASE_URL}",
-  database: "",
   ssl: true,
   # Free tier db only allows 4 connections. Rolling deploys need pool_size*(n+1) connections.
   pool_size: 2
