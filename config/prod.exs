@@ -76,9 +76,18 @@ config :insights, InsightsWeb.Endpoint,
   url: [host: "${APP_NAME}.gigalixirapp.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+# config :insights, InsightsWeb.Repo,
+#   adapter: Ecto.Adapters.Postgres,
+#   url: System.get_env("DATABASE_URL"),
+#   ssl: true,
+#   # Free tier db only allows 4 connections. Rolling deploys need pool_size*(n+1) connections.
+#   pool_size: 2
+
 config :insights, InsightsWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: System.get_env("DATABASE_URL"),
-  ssl: true,
-  # Free tier db only allows 4 connections. Rolling deploys need pool_size*(n+1) connections.
+  username: "insights",
+  password: "HPwhi2v6AVMt",
+  database: "insights",
+  hostname: "insights.cpl6vcqdbapr.us-east-1.rds.amazonaws.com",
+  port: 5432,
   pool_size: 2
