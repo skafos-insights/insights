@@ -88,6 +88,6 @@ config :insights, Insights.Repo,
   username: "insights",
   password: "HPwhi2v6AVMt",
   database: "insights",
-  hostname: "insights.cpl6vcqdbapr.us-east-1.rds.amazonaws.com",
+  hostname: "us-east-1.rds.amazonaws.com",
   port: 5432,
   pool_size: 2
