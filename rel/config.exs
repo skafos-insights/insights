@@ -48,6 +48,7 @@ environment :dev do
   set(dev_mode: true)
   set(include_erts: false)
   set(cookie: :"QK3x*ZFJeqCkSWvv!GYm9nl}:&3,(2ZU]1[0}RAbs!C~W`^V&<k@3V:W:{>t%3x.")
+  set(pre_start_hooks: "rel/hooks/pre_start")
 end
 
 environment :prod do
