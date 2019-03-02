@@ -27,6 +27,12 @@ defmodule Insights.ReleaseTasks do
 
   def migrate, do: Enum.each(repos(), &run_migrations_for/1)
 
+  defp run_migrations_for(repo) do
+    app = Keyword.get(repo.config, :otp_app)
+    IO.puts("Running migrations for #{app}")
+    Ecto.Migrator.run(repo, migrations_path(repo), :up, all: true)
+  end
+
   def migrations_path(repo), do: priv_path_for(repo, "migrations")
 end
 
