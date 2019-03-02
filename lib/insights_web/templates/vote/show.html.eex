@@ -1,0 +1,13 @@
+<h1>Show Vote</h1>
+
+<ul>
+
+  <li>
+    <strong>Vote type:</strong>
+    <%= @vote.vote_type %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.vote_path(@conn, :edit, @vote) %></span>
+<span><%= link "Back", to: Routes.vote_path(@conn, :index) %></span>

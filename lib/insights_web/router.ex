@@ -17,6 +17,11 @@ defmodule InsightsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/issues", IssueController
+    resources "/members", MemberController
+    resources "/discussions", DiscussionController
+    resources "/meetings", MeetingController
+    resources "/votes", VoteController
   end
 
   # Other scopes may use custom stacks.

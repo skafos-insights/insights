@@ -1,0 +1,18 @@
+<h1>Show Member</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @member.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @member.description %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.member_path(@conn, :edit, @member) %></span>
+<span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>

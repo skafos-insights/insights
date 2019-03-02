@@ -1,0 +1,28 @@
+<h1>Listing Discussions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Present</th>
+      <th>Absent</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for discussion <- @discussions do %>
+    <tr>
+      <td><%= discussion.present %></td>
+      <td><%= discussion.absent %></td>
+
+      <td>
+        <%= link "Show", to: Routes.discussion_path(@conn, :show, discussion) %>
+        <%= link "Edit", to: Routes.discussion_path(@conn, :edit, discussion) %>
+        <%= link "Delete", to: Routes.discussion_path(@conn, :delete, discussion), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Discussion", to: Routes.discussion_path(@conn, :new) %></span>
