@@ -68,3 +68,5 @@ vote_type: integer ([-1, 0, 1])
 Discussion: reference
 
 mix phx.gen.html Votes Vote votes member_id:references:members vote_type:integer discussion:references:discussions
+
+SECRET_KEY_BASE="\$(mix phx.gen.secret)" MIX_ENV=prod DATABASE_URL="ecto://postgres:postgres@localhost:5432/insights_dev" PORT=4000 mix phx.server
