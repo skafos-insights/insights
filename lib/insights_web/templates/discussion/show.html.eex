@@ -1,4 +1,10 @@
 <a href="/meetings/<%= @discussion.meeting.id %>">Meeting</a>
+<%= if @discussion.meeting.title do %>
+  <p><%= @discussion.meeting.title %></p>
+<% end %>
+<%= if @discussion.meeting.type do %>
+  <p><%= @discussion.meeting.type %></p>
+<% end %>
 <p><%= @discussion.meeting.date %></p>
 <%# <br>
 <br> %>
