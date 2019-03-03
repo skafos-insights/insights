@@ -23,7 +23,7 @@ defmodule InsightsWeb.MeetingControllerTest do
       detail_url: "some detail_url",
       summary_url: "some summary_url"
     },
-    discussions: []
+    discussions: [%{absent: [], present: [], issue_id: 1, body: "test"}]
   }
 
   def fixture(:meeting) do

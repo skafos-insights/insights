@@ -77,8 +77,8 @@ defmodule InsightsWeb.MeetingController do
             Enum.reduce(discussions, Ecto.Multi.new(), fn discussion, multi ->
               Ecto.Multi.insert(
                 multi,
-                %{discussion: discussion.title},
-                Discussions.create_discussion(Map.put(discussion, :meeting_id, meeting.id))
+                %{discussion: discussion["body"]},
+                Discussions.create_discussion(Map.put(discussion, "meeting_id", meeting.id))
               )
             end)
           )
