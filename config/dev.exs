@@ -81,3 +81,5 @@ config :insights, Insights.Repo,
   hostname: "insights.cpl6vcqdbapr.us-east-1.rds.amazonaws.com",
   port: 5432,
   pool_size: 10
+
+config :ecto, json_library: Jason
