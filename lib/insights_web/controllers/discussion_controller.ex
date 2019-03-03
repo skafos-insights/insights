@@ -34,7 +34,11 @@ defmodule InsightsWeb.DiscussionController do
   end
 
   def show(conn, %{"id" => id}) do
-    discussion = Discussions.get_discussion!(id) |> Insights.Repo.preload(:issue)
+    discussion =
+      Discussions.get_discussion!(id)
+      |> Insights.Repo.preload(:issue)
+      |> Insights.Repo.preload(:meeting)
+
     render(conn, "show.html", discussion: discussion)
   end
 
