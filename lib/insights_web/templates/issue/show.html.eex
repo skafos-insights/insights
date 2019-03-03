@@ -1,17 +1,8 @@
-<h1>Show Issue</h1>
+<h3><%= @issue.identifier %></h3>
+
+<p><%= @issue.description %></p>
 
 <ul>
-
-  <li>
-    <strong>Description:</strong>
-    <%= @issue.description %>
-  </li>
-
-  <li>
-    <strong>Identifier:</strong>
-    <%= @issue.identifier %>
-  </li>
-
   <li>
     <strong>Importance:</strong>
     <%= @issue.importance %>
@@ -28,11 +19,8 @@
   </li>
 
   <li>
-    <strong>Urls:</strong>
-    <%= @issue.urls %>
+    <a href="<%= @issue.urls %>">View Adgenda</a>
   </li>
 
 </ul>
 
-<span><%= link "Edit", to: Routes.issue_path(@conn, :edit, @issue) %></span>
-<span><%= link "Back", to: Routes.issue_path(@conn, :index) %></span>
