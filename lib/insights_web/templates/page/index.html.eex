@@ -2,24 +2,24 @@
 
 <h3>Current Issues</h3>
 
-<table>
+<table class='datatable' style="width:100%">
   <thead>
     <tr>
       <th>Identifier</th>
-      <th></th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
 <%= for issue <- @issues do %>
     <tr>
-    <td><a href="/issues/<%= issue.id %>"><%= issue.identifier %></a></td>
-    <td>
-      <%= if issue.status != "UNKNOWN" do %>
-       <span class="badge badge-secondary">
-        <%= issue.status %>
-       </span>
-      <% end %>
-    </td>
+      <td><a href="/issues/<%= issue.id %>"><%= issue.identifier %></a></td>
+      <td>
+        <%= if issue.status != "UNKNOWN" do %>
+        <span class="badge badge-dark">
+          <%= issue.status %>
+        </span>
+        <% end %>
+      </td>
     </tr>
 <% end %>
   </tbody>
