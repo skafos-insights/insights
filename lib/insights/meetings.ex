@@ -101,4 +101,23 @@ defmodule Insights.Meetings do
   def change_meeting(%Meeting{} = meeting) do
     Meeting.changeset(meeting, %{})
   end
+
+
+  @doc """
+  Creates a meeting.
+
+  ## Examples
+
+      iex> create_meeting(%{field: value})
+      {:ok, %Meeting{}}
+
+      iex> create_meeting(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def import_meeting(attrs \\ %{}) do
+    %Meeting{}
+    |> Meeting.changeset(attrs)
+    |> Repo.insert()
+  end
 end

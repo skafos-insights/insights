@@ -21,6 +21,7 @@ defmodule InsightsWeb.Router do
     resources "/members", MemberController
     resources "/discussions", DiscussionController
     resources "/meetings", MeetingController
+    post "/meetings/import", MeetingController, :import
     resources "/votes", VoteController
   end
 

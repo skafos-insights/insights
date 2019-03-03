@@ -59,4 +59,26 @@ defmodule InsightsWeb.MeetingController do
     |> put_flash(:info, "Meeting deleted successfully.")
     |> redirect(to: Routes.meeting_path(conn, :index))
   end
+
+  def translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &InsightsWeb.ErrorHelpers.translate_error/1)
+  end
+
+  def import(conn, %{"meeting" => meeting_params}) do
+    meeting = Map.get(meeting_params, "meeting", %{})
+    IO.inspect(meeting)
+    discussions = Map.get(meeting_params, "discussions", []
+    # Use Ecto.Multi here. They all succeed or fail together.
+    case Meetings.create_meeting(meeting) do
+      {:ok, meeting} -> {
+        discussion_results = Enum.map(discussions => Discussions.create_discussion(discussion))
+        conn
+        |> put_flash(:info, "Meeting created successfully.")
+        |> redirect(to: Routes.meeting_path(conn, :show, meeting))
+      }
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+         json(conn |> put_status(500), %{errors: translate_errors(changeset)})
+    end
+  end
 end
