@@ -3,16 +3,28 @@ defmodule InsightsWeb.MeetingControllerTest do
 
   alias Insights.Meetings
 
-  @create_attrs %{body: "some body", date: ~D[2010-04-17], detail_url: "some detail_url", summary_url: "some summary_url"}
-  @update_attrs %{body: "some updated body", date: ~D[2011-05-18], detail_url: "some updated detail_url", summary_url: "some updated summary_url"}
+  @create_attrs %{
+    body: "some body",
+    date: ~D[2010-04-17],
+    detail_url: "some detail_url",
+    summary_url: "some summary_url"
+  }
+  @update_attrs %{
+    body: "some updated body",
+    date: ~D[2011-05-18],
+    detail_url: "some updated detail_url",
+    summary_url: "some updated summary_url"
+  }
   @invalid_attrs %{body: nil, date: nil, detail_url: nil, summary_url: nil}
-  @import_attrs %{meeting: %{
+  @import_attrs %{
+    meeting: %{
       body: "some body",
       date: ~D[2010-04-17],
       detail_url: "some detail_url",
       summary_url: "some summary_url"
     },
-    discussions: []}
+    discussions: []
+  }
 
   def fixture(:meeting) do
     {:ok, meeting} = Meetings.create_meeting(@create_attrs)
@@ -102,6 +114,7 @@ defmodule InsightsWeb.MeetingControllerTest do
     test "deletes chosen meeting", %{conn: conn, meeting: meeting} do
       conn = delete(conn, Routes.meeting_path(conn, :delete, meeting))
       assert redirected_to(conn) == Routes.meeting_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.meeting_path(conn, :show, meeting))
       end

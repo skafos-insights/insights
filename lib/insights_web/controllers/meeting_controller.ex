@@ -70,16 +70,18 @@ defmodule InsightsWeb.MeetingController do
     IO.inspect(meeting)
     discussions = Map.get(meeting_params, "discussions", [])
     # Use Ecto.Multi here. They all succeed or fail together.
-    case Meetings.create_meeting(meeting) do
-      {:ok, meeting} ->
-        {
-          Enum.reduce(discussions, Ecto.Multi.new(), fn discussion, multi ->
-            Ecto.Multi.insert(
-              multi,
-              %{discussion: discussion.title},
-              Discussions.create_discussion(Map.put(discussion, :meeting_id, meeting.id))
-            )
-          end)
+    result =
+      case Meetings.create_meeting(meeting) do
+        {:ok, meeting} ->
+          Insights.Repo.transaction(
+            Enum.reduce(discussions, Ecto.Multi.new(), fn discussion, multi ->
+              Ecto.Multi.insert(
+                multi,
+                %{discussion: discussion.title},
+                Discussions.create_discussion(Map.put(discussion, :meeting_id, meeting.id))
+              )
+            end)
+          )
           |> case do
             {:ok, discussions} ->
               json(conn, discussions)
@@ -87,10 +89,11 @@ defmodule InsightsWeb.MeetingController do
             {:error, %Ecto.Changeset{} = changeset} ->
               json(conn |> put_status(500), %{errors: translate_errors(changeset)})
           end
-        }
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        json(conn |> put_status(500), %{errors: translate_errors(changeset)})
-    end
+        {:error, %Ecto.Changeset{} = changeset} ->
+          json(conn |> put_status(500), %{errors: translate_errors(changeset)})
+      end
+
+    result
   end
 end

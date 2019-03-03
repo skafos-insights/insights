@@ -2,11 +2,10 @@ defmodule Insights.Votes.Vote do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "votes" do
     field :vote_type, :integer
-    field :member_id, :id
-    field :discussion, :id
+    belongs_to :member, Insights.Members.Member, foreign_key: :member_id
+    # belongs_to :issue, Insights.Issues.Issue, foreign_key: :issue_id
 
     timestamps()
   end
