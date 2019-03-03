@@ -75,9 +75,9 @@ config :phoenix, :plug_init_mode, :runtime
 #   pool_size: 10
 
 config :insights, Insights.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "insights",
+  password: "HPwhi2v6AVMt",
   database: "insights",
-  hostname: "localhost",
+  hostname: "insights.cpl6vcqdbapr.us-east-1.rds.amazonaws.com",
   port: 5432,
   pool_size: 10
