@@ -6,7 +6,6 @@
   <thead>
     <tr>
     <th>Identifier</th>
-      <th>Description</th>
       
 
 
@@ -17,7 +16,6 @@
 <%= for issue <- @issues do %>
     <tr>
     <td><a href="/issues/<%= issue.id %>"><%= issue.identifier %></a></td>
-      <td><%= issue.description %></td>
       
     </tr>
 <% end %>
