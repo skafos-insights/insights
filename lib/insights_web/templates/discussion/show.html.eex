@@ -1,18 +1,28 @@
-<h1>Show Discussion</h1>
+<a href="/meetings/<%= @discussion.meeting.id %>">Meeting</a>
+<%= if @discussion.meeting.title do %>
+  <p><%= @discussion.meeting.title %></p>
+<% end %>
+<%= if @discussion.meeting.type do %>
+  <p><%= @discussion.meeting.type %></p>
+<% end %>
+<p><%= @discussion.meeting.date %></p>
+<%# <br>
+<br> %>
+
 
 <ul>
 
+<%= if @discussion.votes do %>
   <li>
-    <strong>Present:</strong>
-    <%= @discussion.present %>
+    <strong>Votes:</strong>
+    <%= @discussion.votes %>
   </li>
+<% end %>
 
-  <li>
-    <strong>Absent:</strong>
-    <%= @discussion.absent %>
-  </li>
+  
+
+  <p><%= @discussion.body %></p>
+
 
 </ul>
 
-<span><%= link "Edit", to: Routes.discussion_path(@conn, :edit, @discussion) %></span>
-<span><%= link "Back", to: Routes.discussion_path(@conn, :index) %></span>
