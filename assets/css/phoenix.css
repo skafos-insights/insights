@@ -666,3 +666,7 @@ header nav a {
 * {
   font-family: 'Fira Sans', sans-serif;
 }
+
+ul {
+  list-style: none;
+}
