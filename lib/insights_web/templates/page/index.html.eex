@@ -5,10 +5,7 @@
 <table>
   <thead>
     <tr>
-    <th>Identifier</th>
-      
-
-
+      <th>Identifier</th>
       <th></th>
     </tr>
   </thead>
@@ -16,7 +13,13 @@
 <%= for issue <- @issues do %>
     <tr>
     <td><a href="/issues/<%= issue.id %>"><%= issue.identifier %></a></td>
-      
+    <td>
+      <%= if issue.status != "UNKNOWN" do %>
+       <span class="badge badge-secondary">
+        <%= issue.status %>
+       </span>
+      <% end %>
+    </td>
     </tr>
 <% end %>
   </tbody>
