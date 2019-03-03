@@ -39,7 +39,9 @@ defmodule InsightsWeb.DiscussionController do
       |> Insights.Repo.preload(:issue)
       |> Insights.Repo.preload(:meeting)
 
-    render(conn, "show.html", discussion: discussion)
+    html = HTML.Format.text_to_html(discussion.body)
+
+    render(conn, "show.html", discussion: discussion, html: html)
   end
 
   def edit(conn, %{"id" => id}) do

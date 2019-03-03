@@ -35,7 +35,7 @@
 
   
 
-  <p><%= @discussion.body %></p>
+  <p><%= raw(@html) %></p>
 
 
 </ul>
