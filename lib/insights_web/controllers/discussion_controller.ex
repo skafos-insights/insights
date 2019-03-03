@@ -14,15 +14,22 @@ defmodule InsightsWeb.DiscussionController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  def translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &InsightsWeb.ErrorHelpers.translate_error/1)
+  end
+
   def create(conn, %{"discussion" => discussion_params}) do
-    case Discussions.create_discussion(discussion_params) do
+    m = Discussions.create_discussion(discussion_params)
+
+    case m do
       {:ok, discussion} ->
         conn
-        |> put_flash(:info, "Discussion created successfully.")
-        |> redirect(to: Routes.discussion_path(conn, :show, discussion))
+        |> put_status(:created)
+        |> put_resp_header("location", Routes.api_discussion_path(conn, :show, discussion))
+        |> render("show.json", discussion: discussion)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        json(conn |> put_status(500), %{errors: translate_errors(changeset)})
     end
   end
 

@@ -11,12 +11,23 @@ defmodule InsightsWeb.Api.MeetingController do
     render(conn, "index.json", meetings: meetings)
   end
 
+  @spec translate_errors(Ecto.Changeset.t()) :: %{optional(atom()) => [binary()]}
+  def translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &InsightsWeb.ErrorHelpers.translate_error/1)
+  end
+
   def create(conn, %{"meeting" => meeting_params}) do
-    with {:ok, %Meeting{} = meeting} <- Meetings.create_meeting(meeting_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.api_meeting_path(conn, :show, meeting))
-      |> render("show.json", meeting: meeting)
+    m = Meetings.create_meeting(meeting_params)
+
+    case m do
+      {:ok, meeting} ->
+        conn
+        |> put_status(:created)
+        |> put_resp_header("location", Routes.api_meeting_path(conn, :show, meeting))
+        |> render("show.json", meeting: meeting)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        json(conn |> put_status(500), %{errors: translate_errors(changeset)})
     end
   end
 

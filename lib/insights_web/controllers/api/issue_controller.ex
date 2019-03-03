@@ -17,7 +17,6 @@ defmodule InsightsWeb.Api.IssueController do
 
   def create(conn, %{"issue" => issue_params}) do
     c = Issues.create_issue(issue_params)
-    IO.inspect(c)
 
     case c do
       {:ok, issue} ->

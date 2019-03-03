@@ -6,10 +6,10 @@ defmodule InsightsWeb.FallbackController do
   """
   use InsightsWeb, :controller
 
-  def call(conn, {:error, :not_found}) do
+  def call(conn, {:error, error}) do
     conn
     |> put_status(:not_found)
     |> put_view(InsightsWeb.ErrorView)
-    |> render(:"404")
+    |> render(error)
   end
 end
