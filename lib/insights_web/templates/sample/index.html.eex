@@ -1,0 +1,7 @@
+<section class="row">
+  <article class="column">
+    <p>hello </p>
+    <p><%= @blah %></p>
+    <p><%= @blah2 %></p>
+  </article>
+</section>

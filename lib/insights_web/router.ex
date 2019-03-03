@@ -17,6 +17,7 @@ defmodule InsightsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/sample", SampleController, :index
     resources "/issues", IssueController
     resources "/members", MemberController
     resources "/discussions", DiscussionController
