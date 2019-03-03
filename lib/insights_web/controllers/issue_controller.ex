@@ -1,5 +1,6 @@
 defmodule InsightsWeb.IssueController do
   use InsightsWeb, :controller
+  import Ecto.Query
 
   alias Insights.Issues
   alias Insights.Issues.Issue
@@ -28,6 +29,17 @@ defmodule InsightsWeb.IssueController do
 
   def show(conn, %{"id" => id}) do
     issue = Issues.get_issue!(id)
+
+    discussions =
+      from i in Insights.Issues,
+        where: i.id == ^id,
+        join: d in Insights.Discussions,
+        where: i.id == d.issue_id
+
+    # query = from p in Post,
+    #       join: c in Comment, where: c.post_id == p.id
+    IO.puts(discussions)
+
     render(conn, "show.html", issue: issue)
   end
 
@@ -48,14 +60,7 @@ defmodule InsightsWeb.IssueController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", issue: issue, changeset: changeset)
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        json(conn |> put_status(500), %{errors: translate_errors(changeset)})
     end
-  end
-
-  def translate_errors(changeset) do
-    Ecto.Changeset.traverse_errors(changeset, &InsightsWeb.ErrorHelpers.translate_error/1)
   end
 
   def delete(conn, %{"id" => id}) do
