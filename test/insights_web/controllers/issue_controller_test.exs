@@ -3,9 +3,30 @@ defmodule InsightsWeb.IssueControllerTest do
 
   alias Insights.Issues
 
-  @create_attrs %{appropriations: 42, description: "some description", identifier: "some identifier", importance: 120.5, status: "some status", urls: "some urls"}
-  @update_attrs %{appropriations: 43, description: "some updated description", identifier: "some updated identifier", importance: 456.7, status: "some updated status", urls: "some updated urls"}
-  @invalid_attrs %{appropriations: nil, description: nil, identifier: nil, importance: nil, status: nil, urls: nil}
+  @create_attrs %{
+    appropriations: 42,
+    description: "some description",
+    identifier: "some identifier",
+    importance: 120.5,
+    status: "some status",
+    urls: "some urls"
+  }
+  @update_attrs %{
+    appropriations: 43,
+    description: "some updated description",
+    identifier: "some updated identifier",
+    importance: 456.7,
+    status: "some updated status",
+    urls: "some updated urls"
+  }
+  @invalid_attrs %{
+    appropriations: nil,
+    description: nil,
+    identifier: nil,
+    importance: nil,
+    status: nil,
+    urls: nil
+  }
 
   def fixture(:issue) do
     {:ok, issue} = Issues.create_issue(@create_attrs)
@@ -75,6 +96,7 @@ defmodule InsightsWeb.IssueControllerTest do
     test "deletes chosen issue", %{conn: conn, issue: issue} do
       conn = delete(conn, Routes.issue_path(conn, :delete, issue))
       assert redirected_to(conn) == Routes.issue_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.issue_path(conn, :show, issue))
       end

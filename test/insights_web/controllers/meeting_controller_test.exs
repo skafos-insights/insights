@@ -2,6 +2,16 @@ defmodule InsightsWeb.MeetingControllerTest do
   use InsightsWeb.ConnCase
 
   alias Insights.Meetings
+  alias Insights.Issues
+
+  @create_issue_attrs %{
+    appropriations: 42,
+    description: "some description",
+    identifier: "some identifier",
+    importance: 120.5,
+    status: "some status",
+    urls: "some urls"
+  }
 
   @create_attrs %{
     body: "some body",
@@ -29,6 +39,11 @@ defmodule InsightsWeb.MeetingControllerTest do
   def fixture(:meeting) do
     {:ok, meeting} = Meetings.create_meeting(@create_attrs)
     meeting
+  end
+
+  def fixture(:issue) do
+    {:ok, issue} = Issues.create_issue(@create_issue_attrs)
+    issue
   end
 
   describe "index" do
@@ -63,10 +78,10 @@ defmodule InsightsWeb.MeetingControllerTest do
   end
 
   describe "import meeting" do
-    test "returns error when data is invalid", %{conn: conn} do
+    setup [:create_issue]
+
+    test "returns error when data is invalid", %{conn: conn, issue: issue} do
       invalid = Map.drop(@import_attrs, [:meeting])
-      IO.inspect("\n")
-      IO.inspect(invalid)
       conn = post(conn, Routes.meeting_path(conn, :import), meeting: invalid)
 
       # assert %{id: id} = redirected_params(conn)
@@ -76,8 +91,19 @@ defmodule InsightsWeb.MeetingControllerTest do
       assert json_response(conn, 500)
     end
 
-    test "imports things right", %{conn: conn} do
-      conn = post(conn, Routes.meeting_path(conn, :import), meeting: @import_attrs)
+    test "imports things right", %{conn: conn, issue: issue} do
+      import_meeting =
+        Map.put(
+          @import_attrs,
+          :discussions,
+          Enum.map(@import_attrs.discussions, fn d -> Map.put(d, :issue_id, issue.id) end)
+        )
+
+      IO.inspect("Hello")
+      IO.inspect(import_meeting)
+      IO.inspect("Hello")
+
+      conn = post(conn, Routes.meeting_path(conn, :import), meeting: import_meeting)
       assert json_response(conn, 200)
     end
   end
@@ -124,5 +150,10 @@ defmodule InsightsWeb.MeetingControllerTest do
   defp create_meeting(_) do
     meeting = fixture(:meeting)
     {:ok, meeting: meeting}
+  end
+
+  defp create_issue(_) do
+    issue = fixture(:issue)
+    {:ok, issue: issue}
   end
 end

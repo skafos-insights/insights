@@ -13,6 +13,16 @@ defmodule InsightsWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api", InsightsWeb.Api do
+    pipe_through :api
+
+    resources "/issues", IssueController
+    # resources "/members", MemberController
+    # resources "/discussions", DiscussionController
+    # resources "/meetings", MeetingController
+    # resources "/votes", VoteController
+  end
+
   scope "/", InsightsWeb do
     pipe_through :browser
 
