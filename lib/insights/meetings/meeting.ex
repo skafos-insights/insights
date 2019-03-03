@@ -3,6 +3,7 @@ defmodule Insights.Meetings.Meeting do
   import Ecto.Changeset
 
   schema "meetings" do
+    field :title, :string
     field :body, :string
     field :date, :date
     field :detail_url, :string
