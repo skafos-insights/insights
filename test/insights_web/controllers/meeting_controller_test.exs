@@ -6,6 +6,13 @@ defmodule InsightsWeb.MeetingControllerTest do
   @create_attrs %{body: "some body", date: ~D[2010-04-17], detail_url: "some detail_url", summary_url: "some summary_url"}
   @update_attrs %{body: "some updated body", date: ~D[2011-05-18], detail_url: "some updated detail_url", summary_url: "some updated summary_url"}
   @invalid_attrs %{body: nil, date: nil, detail_url: nil, summary_url: nil}
+  @import_attrs %{meeting: %{
+      body: "some body",
+      date: ~D[2010-04-17],
+      detail_url: "some detail_url",
+      summary_url: "some summary_url"
+    },
+    discussions: []}
 
   def fixture(:meeting) do
     {:ok, meeting} = Meetings.create_meeting(@create_attrs)
@@ -40,6 +47,26 @@ defmodule InsightsWeb.MeetingControllerTest do
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.meeting_path(conn, :create), meeting: @invalid_attrs)
       assert html_response(conn, 200) =~ "New Meeting"
+    end
+  end
+
+  describe "import meeting" do
+    test "returns error when data is invalid", %{conn: conn} do
+      invalid = Map.drop(@import_attrs, [:meeting])
+      IO.inspect("\n")
+      IO.inspect(invalid)
+      conn = post(conn, Routes.meeting_path(conn, :import), meeting: invalid)
+
+      # assert %{id: id} = redirected_params(conn)
+      # assert redirected_to(conn) == Routes.meeting_path(conn, :show, id)
+
+      # conn = get(conn, Routes.meeting_path(conn, :show, id))
+      assert json_response(conn, 500)
+    end
+
+    test "imports things right", %{conn: conn} do
+      conn = post(conn, Routes.meeting_path(conn, :import), meeting: @import_attrs)
+      assert json_response(conn, 200)
     end
   end
 
