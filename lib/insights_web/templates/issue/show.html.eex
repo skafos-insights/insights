@@ -24,13 +24,30 @@
   </ul>
 
   <ul>
-  <%= for discussion <- @discussions do %>
-  <li>
-    <%= discussion.meeting.date %>
-    <%= discussion.meeting.body %>
-    </li>
-  <% end %>
   </li>
+<table>
+  <thead>
+    <tr>
+    <th>Date</th>
+      <th>Votes</th>
+      
+
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for discussion <- @discussions do %>
+    <tr>
+    <td><%= discussion.meeting.date %></a></td>
+      <td><%= discussion.meeting.title %></td>
+      <td><%= discussion.votes %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+
   </ul>
 
 </ul>
