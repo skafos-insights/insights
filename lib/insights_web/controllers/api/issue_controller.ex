@@ -11,12 +11,23 @@ defmodule InsightsWeb.Api.IssueController do
     render(conn, "index.json", issues: issues)
   end
 
+  def translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &InsightsWeb.ErrorHelpers.translate_error/1)
+  end
+
   def create(conn, %{"issue" => issue_params}) do
-    with {:ok, %Issue{} = issue} <- Issues.create_issue(issue_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.api_issue_path(conn, :show, issue))
-      |> render("show.json", issue: issue)
+    c = Issues.create_issue(issue_params)
+    IO.inspect(c)
+
+    case c do
+      {:ok, issue} ->
+        conn
+        |> put_status(:created)
+        |> put_resp_header("location", Routes.api_issue_path(conn, :show, issue))
+        |> render("show.json", issue: issue)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        json(conn |> put_status(500), %{errors: translate_errors(changeset)})
     end
   end
 

@@ -48,7 +48,14 @@ defmodule InsightsWeb.IssueController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", issue: issue, changeset: changeset)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        json(conn |> put_status(500), %{errors: translate_errors(changeset)})
     end
+  end
+
+  def translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &InsightsWeb.ErrorHelpers.translate_error/1)
   end
 
   def delete(conn, %{"id" => id}) do
