@@ -17,8 +17,8 @@
   <body>
     <header>
       <section class="container">
-        <nav role="navigation">
-          <h1>City Council Insights</h1>
+        <nav class="navbar navbar-light bg-light" role="navigation">
+          <a href="#" class="navbar-brand">City Council Insights</a>
         </nav>
       </section>
     </header>
