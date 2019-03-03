@@ -16,7 +16,7 @@ defmodule Insights.Meetings.Meeting do
   @doc false
   def changeset(meeting, attrs) do
     meeting
-    |> cast(attrs, [:date, :summary_url, :detail_url, :body])
-    |> validate_required([:date, :summary_url, :detail_url, :body])
+    |> cast(attrs, [:date, :body])
+    |> validate_required([:date, :body])
   end
 end
