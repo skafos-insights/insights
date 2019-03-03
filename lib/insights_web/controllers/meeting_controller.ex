@@ -2,6 +2,7 @@ defmodule InsightsWeb.MeetingController do
   use InsightsWeb, :controller
 
   alias Insights.Meetings
+  alias Insights.Discussions
   alias Insights.Meetings.Meeting
 
   def index(conn, _params) do
@@ -67,18 +68,29 @@ defmodule InsightsWeb.MeetingController do
   def import(conn, %{"meeting" => meeting_params}) do
     meeting = Map.get(meeting_params, "meeting", %{})
     IO.inspect(meeting)
-    discussions = Map.get(meeting_params, "discussions", []
+    discussions = Map.get(meeting_params, "discussions", [])
     # Use Ecto.Multi here. They all succeed or fail together.
     case Meetings.create_meeting(meeting) do
-      {:ok, meeting} -> {
-        discussion_results = Enum.map(discussions => Discussions.create_discussion(discussion))
-        conn
-        |> put_flash(:info, "Meeting created successfully.")
-        |> redirect(to: Routes.meeting_path(conn, :show, meeting))
-      }
+      {:ok, meeting} ->
+        {
+          Enum.reduce(discussions, Ecto.Multi.new(), fn discussion, multi ->
+            Ecto.Multi.insert(
+              multi,
+              %{discussion: discussion.title},
+              Discussions.create_discussion(Map.put(discussion, :meeting_id, meeting.id))
+            )
+          end)
+          |> case do
+            {:ok, discussions} ->
+              json(conn, discussions)
+
+            {:error, %Ecto.Changeset{} = changeset} ->
+              json(conn |> put_status(500), %{errors: translate_errors(changeset)})
+          end
+        }
 
       {:error, %Ecto.Changeset{} = changeset} ->
-         json(conn |> put_status(500), %{errors: translate_errors(changeset)})
+        json(conn |> put_status(500), %{errors: translate_errors(changeset)})
     end
   end
 end
