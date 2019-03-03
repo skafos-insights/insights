@@ -18,8 +18,8 @@ defmodule InsightsWeb.Router do
 
     resources "/issues", IssueController
     # resources "/members", MemberController
-    # resources "/discussions", DiscussionController
-    # resources "/meetings", MeetingController
+    resources "/discussions", DiscussionController
+    resources "/meetings", MeetingController
     # resources "/votes", VoteController
   end
 
