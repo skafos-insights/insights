@@ -125,3 +125,5 @@ release :insights do
     ]
   )
 end
+
+config :ecto, json_library: Jason

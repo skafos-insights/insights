@@ -16,7 +16,7 @@ defmodule Insights.Discussions.Discussion do
   @doc false
   def changeset(discussion, attrs) do
     discussion
-    |> cast(attrs, [:present, :absent])
-    |> validate_required([:present, :absent])
+    |> cast(attrs, [:body, :meeting_id, :issue_id])
+    |> validate_required([:body, :meeting_id, :issue_id])
   end
 end
