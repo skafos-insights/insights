@@ -7,6 +7,10 @@ defmodule Insights.Discussions.Discussion do
     field :present, :string
     field :body, :string
     field :votes, :string
+    field :type, :string
+    field :discussion_type, :string
+    field :dollar_amount, :string
+    field :status, :string
     belongs_to :meeting, Insights.Meetings.Meeting, foreign_key: :meeting_id
     belongs_to :issue, Insights.Issues.Issue, foreign_key: :issue_id
 
