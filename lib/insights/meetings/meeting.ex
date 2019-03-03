@@ -2,12 +2,12 @@ defmodule Insights.Meetings.Meeting do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "meetings" do
     field :body, :string
     field :date, :date
     field :detail_url, :string
     field :summary_url, :string
+    many_to_many :issues, Insights.Issues.Issue, join_through: "issues_to_meetings"
 
     timestamps()
   end

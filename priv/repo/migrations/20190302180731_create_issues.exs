@@ -12,6 +12,5 @@ defmodule Insights.Repo.Migrations.CreateIssues do
 
       timestamps()
     end
-
   end
 end
