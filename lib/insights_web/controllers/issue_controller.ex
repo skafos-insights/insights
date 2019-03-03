@@ -30,15 +30,15 @@ defmodule InsightsWeb.IssueController do
   def show(conn, %{"id" => id}) do
     issue = Issues.get_issue!(id)
 
-    discussions =
-      from i in Insights.Issues,
-        where: i.id == ^id,
-        join: d in Insights.Discussions,
-        where: i.id == d.issue_id
+    # discussions =
+    #   from i in Insights.Issues,
+    #     where: i.id == ^id,
+    #     join: d in Insights.Discussions,
+    #     where: i.id == d.issue_id
 
-    # query = from p in Post,
-    #       join: c in Comment, where: c.post_id == p.id
-    IO.puts(discussions)
+    # # query = from p in Post,
+    # #       join: c in Comment, where: c.post_id == p.id
+    # IO.puts(discussions)
 
     render(conn, "show.html", issue: issue)
   end
