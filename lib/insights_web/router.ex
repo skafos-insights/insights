@@ -13,7 +13,7 @@ defmodule InsightsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", InsightsWeb.Api do
+  scope "/api", InsightsWeb.Api, as: :api do
     pipe_through :api
 
     resources "/issues", IssueController

@@ -18,6 +18,6 @@ defmodule Insights.Issues.Issue do
   def changeset(issue, attrs) do
     issue
     |> cast(attrs, [:description, :identifier, :importance, :appropriations, :status, :urls])
-    |> validate_required([:description, :identifier, :status, :urls])
+    |> validate_required([:description, :identifier, :status])
   end
 end
