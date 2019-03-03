@@ -3,10 +3,7 @@
 <p><%= @issue.description %></p>
 
 <ul>
-  <li>
-    <strong>Importance:</strong>
-    <%= @issue.importance %>
-  </li>
+
 
   <li>
     <strong>Appropriations:</strong>
