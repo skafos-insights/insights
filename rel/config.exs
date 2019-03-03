@@ -126,5 +126,5 @@ release :insights do
   )
 end
 
-use Mix.Config
-config :ecto, json_library: Jason
+# use Mix.Config
+# config :ecto, json_library: Jason
