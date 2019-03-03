@@ -5,6 +5,7 @@ defmodule Insights.Discussions.Discussion do
   schema "discussions" do
     field :absent, :string
     field :present, :string
+    field :body, :string
     belongs_to :meeting, Insights.Meetings.Meeting, foreign_key: :meeting_id
     belongs_to :issue, Insights.Issues.Issue, foreign_key: :issue_id
 

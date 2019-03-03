@@ -73,15 +73,16 @@ defmodule InsightsWeb.MeetingController do
     result =
       case Meetings.create_meeting(meeting) do
         {:ok, meeting} ->
-          Insights.Repo.transaction(
-            Enum.reduce(discussions, Ecto.Multi.new(), fn discussion, multi ->
-              Ecto.Multi.insert(
-                multi,
-                %{discussion: discussion["body"]},
-                Discussions.create_discussion(Map.put(discussion, "meeting_id", meeting.id))
-              )
+          Ecto.Multi.new()
+          |> Ecto.Multi.insert_all(
+            :discussions,
+            Insights.Discussions.Discussion,
+            Enum.map(discussions, fn discussion ->
+              Map.put(discussion, "meeting_id", meeting.id)
+              |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
             end)
           )
+          |> Insights.Repo.transaction()
           |> case do
             {:ok, discussions} ->
               json(conn, discussions)
