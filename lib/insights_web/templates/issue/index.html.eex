@@ -5,6 +5,7 @@
     <tr>
       <th>Description</th>
       <th>Identifier</th>
+      <th>Discussions</th>
       <th>Importance</th>
       <th>Appropriations</th>
       <th>Status</th>
@@ -18,6 +19,7 @@
     <tr>
       <td><%= issue.description %></td>
       <td><%= issue.identifier %></td>
+      <td><%= Enum.count(issue.discussions) %></td>
       <td><%= issue.importance %></td>
       <td><%= issue.appropriations %></td>
       <td><%= issue.status %></td>
