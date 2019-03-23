@@ -75,11 +75,12 @@ config :phoenix, :plug_init_mode, :runtime
 #   pool_size: 10
 
 config :insights, Insights.Repo,
-  username: "insights",
-  password: "HPwhi2v6AVMt",
-  database: "insights",
-  hostname: "insights.cpl6vcqdbapr.us-east-1.rds.amazonaws.com",
-  port: 5432,
-  pool_size: 10
+  adapter: Ecto.Adapters.Postgres,
+  username: "${DB_USERNAME}",
+  password: "${DB_PASSWORD}",
+  database: "${DB_DATABASE_NAME}",
+  hostname: "${DB_HOST}",
+  port: "${DB_PORT}",
+  pool_size: 2
 
 config :ecto, json_library: Jason
