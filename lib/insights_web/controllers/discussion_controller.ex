@@ -5,7 +5,11 @@ defmodule InsightsWeb.DiscussionController do
   alias Insights.Discussions.Discussion
 
   def index(conn, _params) do
-    discussions = Discussions.list_discussions()
+    discussions =
+      Discussions.list_discussions()
+      |> Insights.Repo.preload(:issue)
+      |> Insights.Repo.preload(:meeting)
+
     render(conn, "index.html", discussions: discussions)
   end
 
@@ -39,7 +43,9 @@ defmodule InsightsWeb.DiscussionController do
       |> Insights.Repo.preload(:issue)
       |> Insights.Repo.preload(:meeting)
 
-    html = HTML.Format.text_to_html(discussion.body)
+    html = Phoenix.HTML.Format.text_to_html(discussion.body)
+
+    IO.inspect(discussion)
 
     render(conn, "show.html", discussion: discussion, html: html)
   end

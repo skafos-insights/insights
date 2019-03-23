@@ -76,11 +76,11 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :insights, Insights.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "${DB_USERNAME}",
-  password: "${DB_PASSWORD}",
-  database: "${DB_DATABASE_NAME}",
-  hostname: "${DB_HOST}",
-  port: "${DB_PORT}",
+  username: System.get_env("DB_USERNAME"),
+  password: System.get_env("DB_PASSWORD"),
+  database: System.get_env("DB_DATABASE_NAME"),
+  hostname: System.get_env("DB_HOST"),
+  port: System.get_env("DB_PORT") |> String.to_integer(),
   pool_size: 2
 
 config :ecto, json_library: Jason

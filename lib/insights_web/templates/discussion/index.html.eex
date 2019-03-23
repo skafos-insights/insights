@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Identifier</th>
       <th>Present</th>
       <th>Absent</th>
 
@@ -12,6 +13,8 @@
   <tbody>
 <%= for discussion <- @discussions do %>
     <tr>
+      <td><%= discussion.identifier %></td>
+      <td><%= discussion.date %></td>
       <td><%= discussion.present %></td>
       <td><%= discussion.absent %></td>
 

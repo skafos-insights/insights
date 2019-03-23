@@ -1,19 +1,22 @@
 <a href="/meetings/<%= @discussion.meeting.id %>">Meeting</a>
-<%= if @discussion.meeting.discussion_type do %>
-  <p><%= @discussion.meeting.discussion_type %></p>
+<%= if @discussion.discussion_type do %>
+  <p><%= @discussion.discussion_type %></p>
+<% end %>
+<%= if @discussion.issue.identifier do %>
+  <p><%= @discussion.issue.identifier %></p>
 <% end %>
 <%= if @discussion.meeting.title do %>
   <h3><%= @discussion.meeting.title %></h3>
 <% end %>
-<%= if @discussion.meeting.type do %>
-  <p><%= @discussion.meeting.type %></p>
+<%= if @discussion.type do %>
+  <p><%= @discussion.type %></p>
 <% end %>
-<%= if @discussion.meeting.dollar_amount do %>
-  <p><%= @discussion.meeting.dollar_amount %></p>
+<%= if @discussion.dollar_amount do %>
+  <p><%= @discussion.dollar_amount %></p>
 <% end %>
 
-<%= if @discussion.meeting.status do %>
-  <p><%= @discussion.meeting.status %></p>
+<%= if @discussion.status do %>
+  <p><%= @discussion.status %></p>
 <% end %>
 
 
@@ -34,7 +37,7 @@
 <% end %>
 
   
-
+  <h3>Discussion body</h3>
   <p><%= raw(@html) %></p>
 
 

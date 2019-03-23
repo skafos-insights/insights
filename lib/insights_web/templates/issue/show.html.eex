@@ -34,7 +34,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= for discussion <- @discussions do %>
+    <%= for discussion <- @issue.discussions do %>
     <tr>
     <td><%= discussion.meeting.date %></a></td>
       <td><%= discussion.meeting.title %></td>

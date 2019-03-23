@@ -2,7 +2,7 @@ defmodule InsightsWeb.MeetingController do
   use InsightsWeb, :controller
 
   alias Insights.Meetings
-  alias Insights.Discussions
+  alias Insights.Discussions.Discussion
   alias Insights.Meetings.Meeting
 
   def index(conn, _params) do
@@ -29,7 +29,8 @@ defmodule InsightsWeb.MeetingController do
 
   def show(conn, %{"id" => id}) do
     meeting = Meetings.get_meeting!(id)
-    render(conn, "show.html", meeting: meeting)
+    html = Phoenix.HTML.Format.text_to_html(meeting.body)
+    render(conn, "show.html", meeting: meeting, html: html)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -76,7 +77,7 @@ defmodule InsightsWeb.MeetingController do
           Ecto.Multi.new()
           |> Ecto.Multi.insert_all(
             :discussions,
-            Insights.Discussions.Discussion,
+            Discussion,
             Enum.map(discussions, fn discussion ->
               Map.put(discussion, "meeting_id", meeting.id)
               |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)

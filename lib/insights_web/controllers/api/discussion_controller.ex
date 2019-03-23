@@ -4,13 +4,24 @@ defmodule InsightsWeb.Api.DiscussionController do
   import Protocol
 
   Protocol.derive(Jason.Encoder, Insights.Discussions.Discussion,
-    only: [:absent, :present, :body, :votes, :meeting_id, :issue_id]
+    only: [
+      :absent,
+      :present,
+      :body,
+      :votes,
+      :type,
+      :discussion_type,
+      :dollar_amount,
+      :status,
+      :meeting_id,
+      :issue_id
+    ]
   )
 
   alias Insights.Discussions
   alias Insights.Discussions.Discussion
 
-  action_fallback InsightsWeb.FallbackController
+  action_fallback(InsightsWeb.FallbackController)
 
   def index(conn, _params) do
     discussions = Discussions.list_discussions()

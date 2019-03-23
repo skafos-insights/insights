@@ -1,6 +1,5 @@
 defmodule InsightsWeb.IssueController do
   use InsightsWeb, :controller
-  import Ecto.Query
 
   alias Insights.Issues
   alias Insights.Issues.Issue
@@ -29,21 +28,9 @@ defmodule InsightsWeb.IssueController do
   end
 
   def show(conn, %{"id" => id}) do
-    issue = Issues.get_issue!(id)
+    issue = Issues.get_issue!(id) |> Insights.Repo.preload([{:discussions, :meeting}])
 
-    meetings = Insights.Meetings.list_meetings()
-
-    discussions = Insights.Discussions.list_discussions()
-
-    discussions_filtered =
-      discussions
-      |> Enum.filter(fn d -> d.issue_id == issue.id end)
-      |> Insights.Repo.preload(:meeting)
-      |> Insights.Repo.preload(:issue)
-
-    IO.inspect(discussions_filtered)
-
-    render(conn, "show.html", issue: issue, meetings: meetings, discussions: discussions_filtered)
+    render(conn, "show.html", issue: issue)
   end
 
   def edit(conn, %{"id" => id}) do

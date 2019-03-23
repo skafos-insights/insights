@@ -6,7 +6,6 @@
       <th>Date</th>
       <th>Summary url</th>
       <th>Detail url</th>
-      <th>Body</th>
 
       <th></th>
     </tr>
@@ -17,7 +16,6 @@
       <td><%= meeting.date %></td>
       <td><%= meeting.summary_url %></td>
       <td><%= meeting.detail_url %></td>
-      <td><%= meeting.body %></td>
 
       <td>
         <%= link "Show", to: Routes.meeting_path(@conn, :show, meeting) %>

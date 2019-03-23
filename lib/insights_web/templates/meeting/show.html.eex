@@ -29,7 +29,7 @@
 
   <li>
     <strong>Body:</strong>
-    <p><%= @meeting.body %></p>
+    <p><%= raw(@html) %></p>
   </li>
 <% end %>
 
