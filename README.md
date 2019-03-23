@@ -1,5 +1,13 @@
 # Insights
 
+To get necessary environment variables:
+
+get a copy of .env from somewhere
+
+```
+. ./env.sh
+```
+
 To start your Phoenix server:
 
 - Install dependencies with `mix deps.get`

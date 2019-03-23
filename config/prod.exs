@@ -85,11 +85,11 @@ config :insights, InsightsWeb.Endpoint,
 
 config :insights, Insights.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "insights",
-  password: "HPwhi2v6AVMt",
-  database: "insights",
-  hostname: "insights.cpl6vcqdbapr.us-east-1.rds.amazonaws.com",
-  port: 5432,
+  username: "${DB_USERNAME}",
+  password: "${DB_PASSWORD}",
+  database: "${DB_DATABASE_NAME}",
+  hostname: "${DB_HOST}",
+  port: "${DB_PORT}",
   pool_size: 2
 
 config :ecto, json_library: Jason
