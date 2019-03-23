@@ -4,8 +4,8 @@
   <thead>
     <tr>
       <th>Identifier</th>
-      <th>Present</th>
-      <th>Absent</th>
+      <th>Date</th>
+      <th>Votes</th>
 
       <th></th>
     </tr>
@@ -13,10 +13,9 @@
   <tbody>
 <%= for discussion <- @discussions do %>
     <tr>
-      <td><%= discussion.identifier %></td>
-      <td><%= discussion.date %></td>
-      <td><%= discussion.present %></td>
-      <td><%= discussion.absent %></td>
+      <td style="max-width: 300px;"><%= discussion.issue.identifier %></td>
+      <td><%= discussion.meeting.date %></td>
+      <td><%= discussion.votes %>
 
       <td>
         <%= link "Show", to: Routes.discussion_path(@conn, :show, discussion) %>
