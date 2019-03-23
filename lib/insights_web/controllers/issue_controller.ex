@@ -29,6 +29,7 @@ defmodule InsightsWeb.IssueController do
 
   def show(conn, %{"id" => id}) do
     issue = Issues.get_issue!(id) |> Insights.Repo.preload([{:discussions, :meeting}])
+    IO.inspect(issue.discussions)
 
     render(conn, "show.html", issue: issue)
   end

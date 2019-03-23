@@ -26,19 +26,16 @@
   <thead>
     <tr>
     <th>Date</th>
-      <th>Votes</th>
-      
-
-
-      <th></th>
+    <th>Votes</th>
+    <th></th>
     </tr>
   </thead>
   <tbody>
     <%= for discussion <- @issue.discussions do %>
     <tr>
     <td><%= discussion.meeting.date %></a></td>
-      <td><%= discussion.meeting.title %></td>
-      <td><%= discussion.votes %></td>
+    <td><%= discussion.votes %></td>
+    <td><%= link "View", to: Routes.discussion_path(InsightsWeb.Endpoint, :show, discussion.id) %></td>
     </tr>
 <% end %>
   </tbody>
