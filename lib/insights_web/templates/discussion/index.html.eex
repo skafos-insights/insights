@@ -6,6 +6,7 @@
       <th>Identifier</th>
       <th>Date</th>
       <th>Votes</th>
+      <th>Status</th>
 
       <th></th>
     </tr>
@@ -16,6 +17,7 @@
       <td style="max-width: 300px;"><%= discussion.issue.identifier %></td>
       <td><%= discussion.meeting.date %></td>
       <td><%= discussion.votes %></td>
+      <td><%= discussion.status %></td>
 
       <td>
         <%= link "Show", to: Routes.discussion_path(@conn, :show, discussion) %>
