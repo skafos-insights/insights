@@ -3,7 +3,6 @@
 <table>
   <thead>
     <tr>
-      <th>Description</th>
       <th>Identifier</th>
       <th>Discussions</th>
       <th>Importance</th>
@@ -17,7 +16,6 @@
   <tbody>
 <%= for issue <- @issues do %>
     <tr>
-      <td><%= issue.description %></td>
       <td><%= issue.identifier %></td>
       <td><%= Enum.count(issue.discussions) %></td>
       <td><%= issue.importance %></td>
