@@ -80,7 +80,7 @@ config :insights, Insights.Repo,
   password: System.get_env("DB_PASSWORD"),
   database: System.get_env("DB_DATABASE_NAME"),
   hostname: System.get_env("DB_HOST"),
-  port: System.get_env("DB_PORT") |> String.to_integer(),
+  port: 5432,
   pool_size: 2
 
 config :ecto, json_library: Jason

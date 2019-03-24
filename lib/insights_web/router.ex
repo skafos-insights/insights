@@ -34,6 +34,7 @@ defmodule InsightsWeb.Router do
     resources "/meetings", MeetingController
     post "/meetings/import", MeetingController, :import
     resources "/votes", VoteController
+    get("/exterminate", PageController, :exterminate)
   end
 
   # Other scopes may use custom stacks.
