@@ -63,12 +63,12 @@ mix phx.gen.html Discussions Discussion discussions present:string absent:string
 _Meeting_
 Date: date
 summary_url: string
-detail_url: string
+minutes_url: string
 Issues: []
 Discussion: []
 Body: string
 
-mix phx.gen.html Meetings Meeting meetings date:date summary_url:string detail_url:string body:string
+mix phx.gen.html Meetings Meeting meetings date:date summary_url:string minutes_url:string body:string
 
 _Vote_
 member_id: reference

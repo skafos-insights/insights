@@ -1,14 +1,14 @@
 <h3><%= @issue.identifier %></h3>
 
-<p><%= @issue.description %></p>
-
 <ul>
 
 
-  <li>
-    <strong>Appropriations:</strong>
-    <%= @issue.appropriations %>
-  </li>
+  <%= if @issue.appropriations != nil do %>
+    <li>
+      <strong>Appropriations:</strong>
+      <%= @issue.appropriations %>
+    </li>
+  <% end %>
 
   <li>
     <strong>Status:</strong>
@@ -22,6 +22,8 @@
   <thead>
     <tr>
     <th>Date</th>
+    <th>Type</th>
+    <th>Status</th>
     <th>Votes</th>
     <th></th>
     </tr>
@@ -29,9 +31,11 @@
   <tbody>
     <%= for discussion <- @issue.discussions do %>
     <tr>
-    <td><%= discussion.meeting.date %></a></td>
-    <td><%= discussion.votes %></td>
-    <td><%= link "View", to: Routes.discussion_path(InsightsWeb.Endpoint, :show, discussion.id) %></td>
+      <td><%= discussion.meeting.date %></a></td>
+      <td><%= discussion.type %> (<%= discussion.discussion_type %>)</td>
+      <td><%= discussion.votes %></td>
+      <td><%= discussion.status %></td>
+      <td><%= link "View", to: Routes.discussion_path(InsightsWeb.Endpoint, :show, discussion.id) %></td>
     </tr>
 <% end %>
   </tbody>
