@@ -9,13 +9,13 @@
   <%= date_select f, :date %>
   <%= error_tag f, :date %>
 
-  <%= label f, :summary_url %>
-  <%= text_input f, :summary_url %>
-  <%= error_tag f, :summary_url %>
+  <%= label f, :agenda_url %>
+  <%= text_input f, :agenda_url %>
+  <%= error_tag f, :agenda_url %>
 
-  <%= label f, :detail_url %>
-  <%= text_input f, :detail_url %>
-  <%= error_tag f, :detail_url %>
+  <%= label f, :minutes_url %>
+  <%= text_input f, :minutes_url %>
+  <%= error_tag f, :minutes_url %>
 
   <%= label f, :body %>
   <%= text_input f, :body %>

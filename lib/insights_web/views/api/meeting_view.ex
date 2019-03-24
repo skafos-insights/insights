@@ -11,10 +11,12 @@ defmodule InsightsWeb.Api.MeetingView do
   end
 
   def render("meeting.json", %{meeting: meeting}) do
-    %{id: meeting.id,
+    %{
+      id: meeting.id,
       date: meeting.date,
-      summary_url: meeting.summary_url,
-      detail_url: meeting.detail_url,
-      body: meeting.body}
+      agenda_url: meeting.agenda_url,
+      minutes_url: meeting.minutes_url,
+      body: meeting.body
+    }
   end
 end

@@ -7,16 +7,16 @@ defmodule InsightsWeb.Api.MeetingControllerTest do
   @create_attrs %{
     body: "some body",
     date: ~D[2010-04-17],
-    detail_url: "some detail_url",
-    summary_url: "some summary_url"
+    minutes_url: "some minutes_url",
+    agenda_url: "some agenda_url"
   }
   @update_attrs %{
     body: "some updated body",
     date: ~D[2011-05-18],
-    detail_url: "some updated detail_url",
-    summary_url: "some updated summary_url"
+    minutes_url: "some updated minutes_url",
+    agenda_url: "some updated agenda_url"
   }
-  @invalid_attrs %{body: nil, date: nil, detail_url: nil, summary_url: nil}
+  @invalid_attrs %{body: nil, date: nil, minutes_url: nil, agenda_url: nil}
 
   def fixture(:meeting) do
     {:ok, meeting} = Meetings.create_meeting(@create_attrs)
@@ -45,8 +45,8 @@ defmodule InsightsWeb.Api.MeetingControllerTest do
                "id" => id,
                "body" => "some body",
                "date" => "2010-04-17",
-               "detail_url" => "some detail_url",
-               "summary_url" => "some summary_url"
+               "minutes_url" => "some minutes_url",
+               "agenda_url" => "some agenda_url"
              } = json_response(conn, 200)["data"]
     end
 
@@ -69,8 +69,8 @@ defmodule InsightsWeb.Api.MeetingControllerTest do
                "id" => id,
                "body" => "some updated body",
                "date" => "2011-05-18",
-               "detail_url" => "some updated detail_url",
-               "summary_url" => "some updated summary_url"
+               "minutes_url" => "some updated minutes_url",
+               "agenda_url" => "some updated agenda_url"
              } = json_response(conn, 200)["data"]
     end
 
@@ -87,9 +87,9 @@ defmodule InsightsWeb.Api.MeetingControllerTest do
       conn = delete(conn, Routes.api_meeting_path(conn, :delete, meeting))
       assert response(conn, 204)
 
-      assert_error_sent 404, fn ->
+      assert_error_sent(404, fn ->
         get(conn, Routes.api_meeting_path(conn, :show, meeting))
-      end
+      end)
     end
   end
 

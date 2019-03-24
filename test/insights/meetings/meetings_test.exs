@@ -6,9 +6,19 @@ defmodule Insights.MeetingsTest do
   describe "meetings" do
     alias Insights.Meetings.Meeting
 
-    @valid_attrs %{body: "some body", date: ~D[2010-04-17], detail_url: "some detail_url", summary_url: "some summary_url"}
-    @update_attrs %{body: "some updated body", date: ~D[2011-05-18], detail_url: "some updated detail_url", summary_url: "some updated summary_url"}
-    @invalid_attrs %{body: nil, date: nil, detail_url: nil, summary_url: nil}
+    @valid_attrs %{
+      body: "some body",
+      date: ~D[2010-04-17],
+      minutes_url: "some minutes_url",
+      agenda_url: "some agenda_url"
+    }
+    @update_attrs %{
+      body: "some updated body",
+      date: ~D[2011-05-18],
+      minutes_url: "some updated minutes_url",
+      agenda_url: "some updated agenda_url"
+    }
+    @invalid_attrs %{body: nil, date: nil, minutes_url: nil, agenda_url: nil}
 
     def meeting_fixture(attrs \\ %{}) do
       {:ok, meeting} =
@@ -33,8 +43,8 @@ defmodule Insights.MeetingsTest do
       assert {:ok, %Meeting{} = meeting} = Meetings.create_meeting(@valid_attrs)
       assert meeting.body == "some body"
       assert meeting.date == ~D[2010-04-17]
-      assert meeting.detail_url == "some detail_url"
-      assert meeting.summary_url == "some summary_url"
+      assert meeting.minutes_url == "some minutes_url"
+      assert meeting.agenda_url == "some agenda_url"
     end
 
     test "create_meeting/1 with invalid data returns error changeset" do
@@ -46,8 +56,8 @@ defmodule Insights.MeetingsTest do
       assert {:ok, %Meeting{} = meeting} = Meetings.update_meeting(meeting, @update_attrs)
       assert meeting.body == "some updated body"
       assert meeting.date == ~D[2011-05-18]
-      assert meeting.detail_url == "some updated detail_url"
-      assert meeting.summary_url == "some updated summary_url"
+      assert meeting.minutes_url == "some updated minutes_url"
+      assert meeting.agenda_url == "some updated agenda_url"
     end
 
     test "update_meeting/2 with invalid data returns error changeset" do

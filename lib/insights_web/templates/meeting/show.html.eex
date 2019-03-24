@@ -9,19 +9,19 @@
   </li>
 <% end %>
 
-<%= if @meeting.summary_url do %>
+<%= if @meeting.agenda_url do %>
 
   <li>
     <strong>Summary url:</strong>
-    <%= @meeting.summary_url %>
+    <%= @meeting.agenda_url %>
   </li>
 <% end %>
 
-<%= if @meeting.detail_url do %>
+<%= if @meeting.minutes_url do %>
 
   <li>
     <strong>Detail url:</strong>
-    <%= @meeting.detail_url %>
+    <%= @meeting.minutes_url %>
   </li>
 <% end %>
 

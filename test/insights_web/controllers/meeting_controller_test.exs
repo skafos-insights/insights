@@ -16,22 +16,22 @@ defmodule InsightsWeb.MeetingControllerTest do
   @create_attrs %{
     body: "some body",
     date: ~D[2010-04-17],
-    detail_url: "some detail_url",
-    summary_url: "some summary_url"
+    minutes_url: "some minutes_url",
+    agenda_url: "some agenda_url"
   }
   @update_attrs %{
     body: "some updated body",
     date: ~D[2011-05-18],
-    detail_url: "some updated detail_url",
-    summary_url: "some updated summary_url"
+    minutes_url: "some updated minutes_url",
+    agenda_url: "some updated agenda_url"
   }
-  @invalid_attrs %{body: nil, date: nil, detail_url: nil, summary_url: nil}
+  @invalid_attrs %{body: nil, date: nil, minutes_url: nil, agenda_url: nil}
   @import_attrs %{
     meeting: %{
       body: "some body",
       date: ~D[2010-04-17],
-      detail_url: "some detail_url",
-      summary_url: "some summary_url"
+      minutes_url: "some minutes_url",
+      agenda_url: "some agenda_url"
     },
     discussions: [%{absent: "", present: "", issue_id: 1, body: "test"}]
   }
@@ -141,9 +141,9 @@ defmodule InsightsWeb.MeetingControllerTest do
       conn = delete(conn, Routes.meeting_path(conn, :delete, meeting))
       assert redirected_to(conn) == Routes.meeting_path(conn, :index)
 
-      assert_error_sent 404, fn ->
+      assert_error_sent(404, fn ->
         get(conn, Routes.meeting_path(conn, :show, meeting))
-      end
+      end)
     end
   end
 

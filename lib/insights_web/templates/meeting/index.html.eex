@@ -14,8 +14,8 @@
 <%= for meeting <- @meetings do %>
     <tr>
       <td><%= meeting.date %></td>
-      <td><%= meeting.summary_url %></td>
-      <td><%= meeting.detail_url %></td>
+      <td><%= meeting.agenda_url %></td>
+      <td><%= meeting.minutes_url %></td>
 
       <td>
         <%= link "Show", to: Routes.meeting_path(@conn, :show, meeting) %>
