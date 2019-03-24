@@ -14,10 +14,6 @@
     <strong>Status:</strong>
     <%= @issue.status %>
   </li>
-
-  <li>
-    <a href="<%= @issue.urls %>">View Agenda</a>
-  </li>
   </ul>
 
   <ul>
