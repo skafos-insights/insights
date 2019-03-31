@@ -25,6 +25,7 @@ defmodule Insights.Meetings.Meeting do
   def changeset(meeting, attrs) do
     meeting
     |> cast(attrs, [:date, :body, :title, :minutes_url, :agenda_url, :agenda_html_url,  :media_player, :duration, :granicus_clip_id, :granicus_duration, :granicus_mp4, :video_file])
+    |> cast_assoc(:discussions, with: &Insights.Discussions.Discussion.changeset/2)
     |> validate_required([:date])
   end
 end
