@@ -1,6 +1,7 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+@import "./meetings.scss";
 
 .DataTables_Table_0_wrapper label {
   font-size:10px;

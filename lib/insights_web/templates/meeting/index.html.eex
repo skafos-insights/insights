@@ -1,22 +1,38 @@
 <h1>Listing Meetings</h1>
 
-<table>
+<table class="meetings-list">
   <thead>
     <tr>
       <th>Date</th>
-      <th>Summary url</th>
-      <th>Detail url</th>
-
+      <th>Agenda</th>
+      <th>Minutes</th>
+      <th>Discussions</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for meeting <- @meetings do %>
     <tr>
-      <td><%= meeting.date %></td>
-      <td><%= meeting.agenda_url %></td>
-      <td><%= meeting.minutes_url %></td>
-
+      <td class="meeting-date" nowrap><%= link meeting.date, to: Routes.meeting_path(@conn, :show, meeting) %></td>
+      <td>
+        <%= if meeting.agenda_url do %>
+          <a href="<%= meeting.agenda_url %>" title="Agenda PDF"><strong>Agenda PDF</strong></a>
+        <% end %>
+      </td>
+      <td>
+        <%= if meeting.minutes_url do %>
+          <a href="<%= meeting.minutes_url %>" title="Minutes PDF"><strong>Minutes PDF</strong></a>
+        <% end %>
+      </td>
+      <td class="discussions">
+        <%= if length(meeting.discussions) > 0 do %>
+          <ul>
+            <%= for discussion <- meeting.discussions do %>
+              <li> <%= link discussion.issue.identifier, to: Routes.discussion_path(@conn, :show, discussion) %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </td>
       <td>
         <%= link "Show", to: Routes.meeting_path(@conn, :show, meeting) %>
         <%= link "Edit", to: Routes.meeting_path(@conn, :edit, meeting) %>

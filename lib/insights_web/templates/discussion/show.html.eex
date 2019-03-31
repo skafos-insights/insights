@@ -1,4 +1,5 @@
-<a href="/meetings/<%= @discussion.meeting.id %>">Meeting</a>
+<%= link "Meeting", to: Routes.meeting_path(@conn, :show, @discussion.meeting) %>
+
 <%= if @discussion.discussion_type do %>
   <p><%= @discussion.discussion_type %></p>
 <% end %>
@@ -19,7 +20,15 @@
   <p><%= @discussion.status %></p>
 <% end %>
 
-
+<%= if @discussion.timestamp && @discussion.meeting.granicus_mp4 do %>
+  <video id="video" src="<%= @discussion.meeting.granicus_mp4 %>" controls type="video/mp4"></video>
+  
+  <script type="text/javascript">
+    document.getElementById('video').addEventListener('loadedmetadata', function() {
+      this.currentTime = <%= @discussion.timestamp %>;
+    }, false);
+  </script>
+<% end %>
 
 
 <p><%= @discussion.meeting.date %></p>
@@ -37,7 +46,7 @@
 <% end %>
 
   
-  <h3>Discussion body</h3>
+  <h3>Discussion minutes</h3>
   <p><%= raw(@html) %></p>
 
 

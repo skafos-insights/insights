@@ -1,6 +1,13 @@
 
 <ul>
 
+<%= if @meeting.title do %>
+
+  <li>
+    <strong><%= @meeting.title %></strong>
+  </li>
+<% end %>
+
 <%= if @meeting.date do %>
 
   <li>
@@ -10,25 +17,49 @@
 <% end %>
 
 <%= if @meeting.agenda_url do %>
-
   <li>
-    <strong>Summary url:</strong>
-    <%= @meeting.agenda_url %>
+    <a href="<%= @meeting.agenda_url %>">
+		<strong>Agenda PDF</strong>
+    </a>
   </li>
 <% end %>
 
 <%= if @meeting.minutes_url do %>
-
   <li>
-    <strong>Detail url:</strong>
-    <%= @meeting.minutes_url %>
+    <a href="<%= @meeting.minutes_url %>">
+		<strong>Minutes PDF</strong>
+    </a>
   </li>
 <% end %>
 
-<%= if @meeting.body do %>
-
+<%= if @meeting.media_player do %>
   <li>
-    <strong>Body:</strong>
+    <a href="<%= @meeting.media_player %>">
+		<strong>Meeting Viewer</strong>
+		<%= if @meeting.granicus_duration do %>(<%= @meeting.granicus_duration %>)<% end %>
+    </a>
+  </li>
+<% end %>
+
+<%= if @meeting.granicus_mp4 do %>
+  <li>
+      <video id="video" src="<%= @meeting.granicus_mp4 %>" controls type="video/mp4"></video>
+  </li>
+<% end %>
+
+<%= if length(@meeting.discussions) > 0 do %>
+  <li>
+    <strong>Discussions:</strong>
+	<ul>
+    <%= for discussion <- @meeting.discussions do %>
+      <li><%= link discussion.issue.identifier, to: Routes.discussion_path(@conn, :show, discussion) %></li>
+    <% end %>
+  </ul></li>
+<% end %>
+
+<%= if @meeting.body do %>
+  <li>
+    <strong>Minutes:</strong>
     <p><%= raw(@html) %></p>
   </li>
 <% end %>
