@@ -51,6 +51,8 @@ defmodule InsightsWeb.Api.IssueController do
 
   def update(conn, %{"id" => id, "issue" => issue_params}) do
     issue = Issues.get_issue!(id)
+      |> Insights.Repo.preload(:discussion)
+      |> Insights.Repo.preload(:meetings)
 
     with {:ok, %Issue{} = issue} <- Issues.update_issue(issue, issue_params) do
       render(conn, "show.json", issue: issue)

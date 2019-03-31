@@ -15,8 +15,7 @@ defmodule InsightsWeb.Api.DiscussionController do
       :dollar_amount,
       :status,
       :meeting_id,
-      :issue_id,
-      :issue
+      :issue_id
     ]
   )
 
@@ -46,6 +45,8 @@ defmodule InsightsWeb.Api.DiscussionController do
 
   def update(conn, %{"id" => id, "discussion" => discussion_params}) do
     discussion = Discussions.get_discussion!(id)
+      |> Insights.Repo.preload(:issue)
+      |> Insights.Repo.preload(:meeting)
 
     with {:ok, %Discussion{} = discussion} <-
            Discussions.update_discussion(discussion, discussion_params) do

@@ -18,7 +18,7 @@ defmodule InsightsWeb.Api.MeetingController do
 
   def create(conn, %{"meeting" => meeting_params}) do
     m = Meetings.create_meeting(meeting_params)
-
+    Insights.Repo.preload(m, :discussions)
     case m do
       {:ok, meeting} ->
         conn
@@ -38,6 +38,8 @@ defmodule InsightsWeb.Api.MeetingController do
 
   def update(conn, %{"id" => id, "meeting" => meeting_params}) do
     meeting = Meetings.get_meeting!(id)
+      |> Insights.Repo.preload(:discussions)
+      |> Insights.Repo.preload(:issues)
 
     with {:ok, %Meeting{} = meeting} <- Meetings.update_meeting(meeting, meeting_params) do
       render(conn, "show.json", meeting: meeting)

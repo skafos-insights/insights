@@ -36,8 +36,8 @@ defmodule Insights.Meetings do
 
   """
   def get_meeting!(id) do
-	from(e in Meeting, preload: [discussions: [:issue]]) |> Repo.get(id)
-	#Repo.get(Meeting, id) |> Repo.preload([:discussions])
+    from(e in Meeting, preload: [discussions: [:issue]]) |> Repo.get(id)
+    #Repo.get(Meeting, id) |> Repo.preload([:discussions])
   end
   @doc """
   Creates a meeting.
