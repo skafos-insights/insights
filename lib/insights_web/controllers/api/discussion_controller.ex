@@ -5,6 +5,7 @@ defmodule InsightsWeb.Api.DiscussionController do
 
   Protocol.derive(Jason.Encoder, Insights.Discussions.Discussion,
     only: [
+      :id,
       :absent,
       :present,
       :body,
@@ -14,7 +15,8 @@ defmodule InsightsWeb.Api.DiscussionController do
       :dollar_amount,
       :status,
       :meeting_id,
-      :issue_id
+      :issue_id,
+      :issue
     ]
   )
 

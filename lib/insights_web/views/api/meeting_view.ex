@@ -16,7 +16,8 @@ defmodule InsightsWeb.Api.MeetingView do
       date: meeting.date,
       agenda_url: meeting.agenda_url,
       minutes_url: meeting.minutes_url,
-      body: meeting.body
+      body: meeting.body,
+      discussions: meeting.discussions
     }
   end
 end

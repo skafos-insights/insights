@@ -18,7 +18,7 @@ defmodule Insights.Meetings do
 
   """
   def list_meetings do
-    Repo.all(Meeting)
+    Repo.all(Meeting)  |> Repo.preload([discussions: [:issue]])
   end
 
   @doc """
@@ -35,8 +35,10 @@ defmodule Insights.Meetings do
       ** (Ecto.NoResultsError)
 
   """
-  def get_meeting!(id), do: Repo.get!(Meeting, id)
-
+  def get_meeting!(id) do
+	from(e in Meeting, preload: [discussions: [:issue]]) |> Repo.get(id)
+	#Repo.get(Meeting, id) |> Repo.preload([:discussions])
+  end
   @doc """
   Creates a meeting.
 

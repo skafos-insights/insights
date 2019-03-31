@@ -1,6 +1,20 @@
 defmodule InsightsWeb.Api.IssueController do
   use InsightsWeb, :controller
 
+  import Protocol
+  
+  Protocol.derive(Jason.Encoder, Insights.Issues.Issue,
+    only: [
+      :id,
+      :description,
+      :identifier,
+      :importance,
+      :appropriations,
+      :status,
+      :urls
+    ]
+  )
+
   alias Insights.Issues
   alias Insights.Issues.Issue
 
